@@ -1,4 +1,5 @@
 package stepDefinitions;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -20,19 +21,27 @@ public class GoogleSearchTest {
     @Before
     public static void setup() {
         // Initialize Chrome WebDriver
-//        ChromeOptions options = ChromeOptionsUtil.getChromeOptions();
-//        System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
-//        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriverv-win64_V126.0.6478.126win64\\chromedriver-win64\\chromedriver.exe");
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
 
-        // Initialize Page Objects
 
+
+        System.out.println("############ i am here ##########");
+
+    }
+    @After
+    public static void tearDown(){
+        System.out.println("############ quitting all opened browsers ##########");
+        driver.quit();
     }
     @Given("I open Google")
     public void openGoogle(){
-        System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriverv-win64_V126.0.6478.126win64\\chromedriver-win64\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
+//        System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriverv-win64_V126.0.6478.126win64\\chromedriver-win64\\chromedriver.exe");
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--remote-allow-origins=*");
+//        driver = new ChromeDriver(options);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.google.com");
