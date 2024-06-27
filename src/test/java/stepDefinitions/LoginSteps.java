@@ -3,6 +3,7 @@ package stepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import org.junit.Assert;
 
 public class LoginSteps {
 
@@ -19,5 +20,9 @@ public class LoginSteps {
     @Then("I should be logged in successfully")
     public void i_should_be_logged_in_successfully() {
         System.out.println("User is logged in successfully");
+        //Asserting Pass
+        Assert.assertTrue("Logged in Successfully",1>0);
+        //sample assertion for failure
+        Assert.assertTrue(1<0);
     }
 }
