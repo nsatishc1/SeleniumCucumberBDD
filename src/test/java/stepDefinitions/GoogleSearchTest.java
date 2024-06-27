@@ -1,4 +1,6 @@
 package stepDefinitions;
+import com.example.Pages.GoogleSearchPage;
+import com.example.Steps.GoogleSearchSteps;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -15,41 +17,34 @@ import java.util.concurrent.TimeUnit;
 
 public class GoogleSearchTest {
 
-    public static WebDriver driver;
-
+    public  WebDriver driver;
+    public  GoogleSearchSteps objGoogleSearchSteps;
 
     @Before
-    public static void setup() {
+    public void setup() {
         // Initialize Chrome WebDriver
         ChromeOptions options = new ChromeOptions();
         System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriverv-win64_V126.0.6478.126win64\\chromedriver-win64\\chromedriver.exe");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-
-
-
+        objGoogleSearchSteps = new GoogleSearchSteps(driver);
         System.out.println("############ i am here ##########");
-
     }
     @After
-    public static void tearDown(){
+    public void tearDown(){
         System.out.println("############ quitting all opened browsers ##########");
         driver.quit();
     }
     @Given("I open Google")
     public void openGoogle(){
-//        System.setProperty("webdriver.chrome.driver", "C:\\softwares\\chromedriverv-win64_V126.0.6478.126win64\\chromedriver-win64\\chromedriver.exe");
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--remote-allow-origins=*");
-//        driver = new ChromeDriver(options);
-
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://www.google.com");
+        driver.manage().window().maximize();
+        objGoogleSearchSteps.open("https://www.google.com");
 
     }
     @When("I search for {string}")
     public void searchString(String query){
-        driver.findElement(By.name("q")).sendKeys(query+ Keys.TAB);
+        objGoogleSearchSteps.enterSearchTerm(query+ Keys.TAB);
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
@@ -58,7 +53,7 @@ public class GoogleSearchTest {
     }
     @Then("the page title should be anything")
     public void hitSearchButton(){
-        driver.findElement(By.xpath("(//input[@role='button'])[2]")).click();
+        objGoogleSearchSteps.clickSearchButton();
 
     }
 
