@@ -3,7 +3,7 @@
 public class Main {
     public static void main(String[] args) {
     int num = 18, counter = 0;
-    for(int iter=2;iter<num;iter++){
+    for(int iter=2;iter<num/2;iter++){
         if(num%iter == 0){
             counter++;
             break;
